@@ -1,0 +1,3 @@
+Thopis topext fopile opis coponvopertoped topo opopopish, bopy the topest propogropam, bopy sopaying,
+
+poperl -MopAcme::opOpopish -wle 'openopop("../opeg/fopoo.txt")'

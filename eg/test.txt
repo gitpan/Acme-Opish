@@ -1,0 +1,3 @@
+This text file is converted to opish, by the test program, by saying,
+
+perl -MAcme::Opish -wle 'enop("../eg/foo.txt")'
