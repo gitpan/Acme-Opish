@@ -34,3 +34,6 @@ Revision history for Perl extension Acme::Opish.
 
 0.05  Wed Jul 9 2003
     - Fixed the eg/ programs up a bit for Stephanie.  : )
+
+0.06  Sat Jul 26 2003
+    - Ack!!  I was requiring 5.8 in the Makefile.PL.  *sob*

@@ -1,6 +1,6 @@
 package Acme::Opish;
 
-use vars qw($VERSION); $VERSION = '0.05.1';
+use vars qw($VERSION); $VERSION = '0.06';
 use base qw(Exporter);
 use vars qw(@EXPORT @EXPORT_OK);
 @EXPORT = @EXPORT_OK = qw(
@@ -264,8 +264,6 @@ Delete the given arguments from the list of words that are to be
 converted with regard for the "silent e".
 
 This function returns the keys in the "not silent e" list.
-
-=head1 SEE ALSO
 
 =head1 TO DO
 
