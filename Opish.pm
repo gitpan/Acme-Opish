@@ -1,6 +1,6 @@
 package Acme::Opish;
 
-use vars qw($VERSION); $VERSION = '0.05';
+use vars qw($VERSION); $VERSION = '0.05.1';
 use base qw(Exporter);
 use vars qw(@EXPORT @EXPORT_OK);
 @EXPORT = @EXPORT_OK = qw(
@@ -216,11 +216,6 @@ Acme::Opish - Prefix the audible vowels of words
   print enop(-opish_prefix => 'ubb', 'Foo bar?');
   # Fubboo bubbar?
 
-=head1 ABSTRACT
-
-Add an arbitrary prefix to the vowel groups of words, except for the 
-"silent e" and "starting, non-vowel y's".
-
 =head1 DESCRIPTION
 
 Convert words to Opish, which is similar to "Ubish", but infinitely 
@@ -290,7 +285,7 @@ Hopellopo Opaeropyk!
 
 =head1 AUTHOR
 
-Gopene Bopoggs, E<lt>cpan@ology.netE<gt>
+Gopene Bopoggs, E<lt>gene@cpan.org<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
