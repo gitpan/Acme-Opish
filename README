@@ -1,4 +1,4 @@
-Acme/Opish version 0.01
+Acme/Opish version 0.04
 =======================
 
 INSTALLATION
@@ -12,7 +12,9 @@ To install this module type the following:
 
 DEPENDENCIES
 
-None
+Carp
+
+File::Basename
 
 COPYRIGHT AND LICENCE
 

@@ -1,7 +1,6 @@
 package Acme::Opish;
 
-use vars qw($VERSION);
-$VERSION = '0.03.1';
+use vars qw($VERSION); $VERSION = '0.04';
 use base qw(Exporter);
 use vars qw(@EXPORT @EXPORT_OK);
 @EXPORT = @EXPORT_OK = qw(
@@ -49,6 +48,7 @@ my %OK; @OK{qw(
     Psyche
     psyche
     Quixote
+    recipie
     Sade
     Salome
     saute
@@ -261,14 +261,14 @@ place of "op".
 Add the given arguments to the list of words that are to be 
 converted without regard for the "silent e".
 
-This function returns the number of keys in the "not silent e" list.
+This function returns the keys in the "not silent e" list.
 
 =head2 has_silent_e ARRAY
 
 Delete the given arguments from the list of words that are to be
 converted with regard for the "silent e".
 
-This function returns the number of keys in the "not silent e" list.
+This function returns the keys in the "not silent e" list.
 
 =head1 SEE ALSO
 

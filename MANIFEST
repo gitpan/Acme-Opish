@@ -3,5 +3,7 @@ MANIFEST
 Makefile.PL
 Opish.pm
 README
+eg/mac_speak
+eg/op
 eg/test.txt
 t/1.t

@@ -1,0 +1,5 @@
+#!/usr/bin/perl -w
+use strict;
+use Acme::Opish;
+my @opped = enop(-opish_prefix => 'awp', @ARGV);
+system qq/echo 'tell application "Finder" to say "@opped"' | osascript/;
