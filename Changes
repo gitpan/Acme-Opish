@@ -31,3 +31,6 @@ Revision history for Perl extension Acme::Opish.
     - Fixed the text in this file.
     - Added a missing file to the MANIFEST
     - Added the PREREQ_PM's to Makefile.PL.
+
+0.05  Wed Jul 9 2003
+    - Fixed the eg/ programs up a bit for Stephanie.  : )
