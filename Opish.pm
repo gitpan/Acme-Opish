@@ -1,7 +1,7 @@
 package Acme::Opish;
 
 use vars qw($VERSION);
-$VERSION = '0.03';
+$VERSION = '0.03.1';
 use base qw(Exporter);
 use vars qw(@EXPORT @EXPORT_OK);
 @EXPORT = @EXPORT_OK = qw(
@@ -239,6 +239,8 @@ couple examples will elucidate this point:
 Unfortunately, this function, currently converts consecutive spaces 
 and newlines into single spaces and newlines.  Yes, this is not a 
 feature, but a bug.
+
+* See the eg/ directory for examples.
 
 =head1 EXPORT
 

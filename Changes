@@ -17,3 +17,7 @@ Revision history for Perl extension Acme::Opish.
     - Special case 'ye'.
     - Added test cases for ^y words.
     - Updated documentation.
+
+0.03.1 Fri Jun 27
+    - Added a simple eg/ program to have osascript (on the Mac) speak
+      the result of an Acme::Opish cponversion.
