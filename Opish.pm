@@ -1,6 +1,6 @@
 package Acme::Opish;
 
-use vars qw($VERSION); $VERSION = '0.01';
+use vars qw($VERSION); $VERSION = '0.01.1';
 use base qw(Exporter);
 use vars qw(@EXPORT @EXPORT_OK);
 @EXPORT = @EXPORT_OK = qw(
@@ -174,9 +174,7 @@ Acme::Opish - Prefix the audible vowels of words
 
   use Acme::Opish;
 
-  print join (', ',
-      enop('Hello Aeryk!')
-  ), "\n";
+  print enop('Hello Aeryk!');
   # Hopellopo Opaeropyk! 
 
   @opped = enop('five', '/literature/Wuthering_Heights.txt');
@@ -189,9 +187,7 @@ Acme::Opish - Prefix the audible vowels of words
   @opped = enop('xe', 'ze');        # xe, ze
 
   # Okay.  Why not add anything you want, instead of "op"?
-  print join (', ',
-      enop(-opish_prefix => 'ubb', 'Foo bar?')
-  ), "\n";
+  print enop(-opish_prefix => 'ubb', 'Foo bar?');
   # Fubboo bubbar?
 
 =head1 ABSTRACT
@@ -233,27 +229,27 @@ place of "op".
 
 =head2 no_silent_e ARRAY
 
-Add the given arguments to the "OK" list of words that are to be 
+Add the given arguments to the list of words that are to be 
 converted without regard for the "silent e".
 
-This function returns the number of keys in the "OK" list.
+This function returns the number of keys in the "not silent e" list.
 
 =head2 has_silent_e ARRAY
 
-Delete the given arguments from the "OK" list of words that are to be
+Delete the given arguments from the list of words that are to be
 converted with regard for the "silent e".
 
-This function returns the number of keys in the "OK" list.
+This function returns the number of keys in the "not silent e" list.
 
 =head1 SEE ALSO
 
 =head1 TO DO
 
-Make this thing preserve contiguous spaces.
+Make this thing preserve contiguous whitespace.
 
 Go in reverse.  That is "deop" text.
 
-Add more "OK" words".
+Add more "non-silent-e" words to the "OK" list.
 
 =head1 THANK YOU
 
