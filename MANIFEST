@@ -3,6 +3,5 @@ MANIFEST
 Makefile.PL
 Opish.pm
 README
-eg/opish-test.txt
 eg/test.txt
 t/1.t

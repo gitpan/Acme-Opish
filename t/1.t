@@ -13,11 +13,11 @@ is_deeply enop('bee'), 'bopee',
 is_deeply enop('Abc'), 'Opabc',
     'preserve ucfirst';
 
-is_deeply enop('../eg/test.txt'), '../eg/opish-test.txt',
-    'convert ../eg/test.txt to ../eg/opish-test.txt';
+is_deeply enop('eg/test.txt'), 'eg/opish-test.txt',
+    'convert eg/test.txt to eg/opish-test.txt';
 
-ok -e '../eg/opish-test.txt',
-    '../eg/opish-test.txt was created';
+ok -e 'eg/opish-test.txt',
+    'eg/opish-test.txt was created';
 
 is_deeply [enop('xe', 'ze')], [('xe', 'ze')],
     'notice silent e';

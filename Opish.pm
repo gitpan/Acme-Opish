@@ -1,6 +1,7 @@
 package Acme::Opish;
 
-use vars qw($VERSION); $VERSION = '0.01.1';
+use vars qw($VERSION);
+$VERSION = '0.02';
 use base qw(Exporter);
 use vars qw(@EXPORT @EXPORT_OK);
 @EXPORT = @EXPORT_OK = qw(
@@ -137,6 +138,25 @@ sub _to_opish {
                     \b              # that terminates at a word boundry.
                 )                   # ...end capture.
             /$prefix$1/gisx;        # Add 'op' to what we captured.
+        }
+        elsif (/^y[aeiouy]/i) {
+            # We don't want to prefix a non-vowel y.
+            s/
+                ^y                  # Our string starts with y!
+                (                   # Capture...
+                    [aeiouy]+       # consecutive vowels
+                    \B              # that do not terminate at a word boundry
+                    (?![aeiouy])    # that are not followed by another vowel
+                    |               # or
+                    [aeiouy]*       # any consecutive vowels
+                    [aiouy]         # with any non-e vowel following
+                    \b              # that terminates at a word boundry.
+                    |               # or
+                    [aeiouy]+       # consecutive vowels
+                    [aeiouy]        # with any vowel following
+                    \b              # that terminates at a word boundry.
+                )                   # ...end capture.
+            /y$prefix$1/gisx;        # Add 'op' to what we captured.
         }
         else {
             # This regexp captures the "non-solitary, trailing e" vowels.
