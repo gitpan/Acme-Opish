@@ -1,4 +1,4 @@
-use Test::More tests => 14;
+use Test::More tests => 16;
 BEGIN { use_ok 'Acme::Opish' };
 
 is_deeply enop('a'), 'opa',
@@ -10,6 +10,12 @@ is_deeply enop('to'), 'topo',
 is_deeply enop('bee'), 'bopee',
     'double vowel terminating string';
 
+is_deeply enop('ye'), 'yope',
+    'handle ye';
+
+is_deeply enop('yellow'), 'yopellopow',
+    'notice a non-vowel starting y';
+
 is_deeply enop('Abc'), 'Opabc',
     'preserve ucfirst';
 
@@ -20,7 +26,7 @@ ok -e 'eg/opish-test.txt',
     'eg/opish-test.txt was created';
 
 is_deeply [enop('xe', 'ze')], [('xe', 'ze')],
-    'notice silent e';
+    'notice the silent e';
 
 my $n = no_silent_e();
 ok defined $n,
@@ -30,14 +36,14 @@ is no_silent_e('xe', 'ze'), $n + 2,
     'added words to the OK list';
 
 is_deeply [enop('xe', 'ze')], [('xope', 'zope')],
-    'ignore silent e';
+    'ignore the silent e';
 
 my $m = has_silent_e('xe', 'ze');
 ok $n == $m,
     'has_silent_e removed words from the OK list';
 
 is_deeply [enop('xe', 'ze')], [('xe', 'ze')],
-    'notice silent e';
+    'notice the silent e again';
 
 is_deeply enop(-opish_prefix => 'ubb', 'Foo bar?'), 'Fubboo bubbar?',
-    'user defined prefix';
+    'set user defined prefix';

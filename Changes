@@ -9,5 +9,11 @@ Revision history for Perl extension Acme::Opish.
 
 0.02  Thu Jun 26
     - Don't prefix non-vowel y's at the beginning of a word.
-    - Fix the path of the opish result test file in eg/.
-    - Remove the opish result test file from eg/.
+    - Fixed the path of the opish result test file in eg/.
+    - Removed the opish result test file from eg/.
+
+0.03  Thu Jun 26
+    - Oof.  Fixed the "^y" condition in a few ways.
+    - Special case 'ye'.
+    - Added test cases for ^y words.
+    - Updated documentation.

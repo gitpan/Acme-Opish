@@ -1,7 +1,7 @@
 package Acme::Opish;
 
 use vars qw($VERSION);
-$VERSION = '0.02';
+$VERSION = '0.03';
 use base qw(Exporter);
 use vars qw(@EXPORT @EXPORT_OK);
 @EXPORT = @EXPORT_OK = qw(
@@ -62,7 +62,6 @@ my %OK; @OK{qw(
     tracheotome
     ukulele
     we
-    ye
     zimbabwe
 )} = undef;
 # }}}
@@ -126,7 +125,7 @@ sub _to_opish {
         $_ = lcfirst;
 
         # XXX Ack.  How can I simplify this ugliness?
-        if (exists $OK{lc $_}) {
+        if (exists $OK{ lc $_ }) {
             s/
                 (                   # Capture...
                     [aeiouy]+       # consecutive vowels
@@ -139,10 +138,15 @@ sub _to_opish {
                 )                   # ...end capture.
             /$prefix$1/gisx;        # Add 'op' to what we captured.
         }
+        # Special case 'ye'.
+        elsif (lc ($_) eq 'ye') {
+            $_ = 'y' . $prefix . substr ($_, -1);
+        }
+        # We don't want to prefix a non-vowel y.
         elsif (/^y[aeiouy]/i) {
-            # We don't want to prefix a non-vowel y.
             s/
-                ^y                  # Our string starts with y!
+                (?:^y)?             # Our string starts with y, but we don't
+                                    # want to consider it for every match.
                 (                   # Capture...
                     [aeiouy]+       # consecutive vowels
                     \B              # that do not terminate at a word boundry
@@ -156,10 +160,12 @@ sub _to_opish {
                     [aeiouy]        # with any vowel following
                     \b              # that terminates at a word boundry.
                 )                   # ...end capture.
-            /y$prefix$1/gisx;        # Add 'op' to what we captured.
+            /$prefix$1/gisx;        # Add 'op' to what we captured.
+
+            $_ = 'y' . $_;
         }
+        # This regexp captures the "non-solitary, trailing e" vowels.
         else {
-            # This regexp captures the "non-solitary, trailing e" vowels.
             s/
                 (                   # Capture...
                     [aeiouy]+       # consecutive vowels
@@ -197,8 +203,8 @@ Acme::Opish - Prefix the audible vowels of words
   print enop('Hello Aeryk!');
   # Hopellopo Opaeropyk! 
 
-  @opped = enop('five', '/literature/Wuthering_Heights.txt');
-  # fopive, /literature/opish-Wuthering_Heights.txt
+  @opped = enop('five', 'yellow', '/literature/Wuthering_Heights.txt');
+  # fopive, yopellopow, /literature/opish-Wuthering_Heights.txt
 
   @opped = enop('xe', 'ze'));       # xe, ze
   @words = no_silent_e('xe', 'ze');
@@ -212,8 +218,8 @@ Acme::Opish - Prefix the audible vowels of words
 
 =head1 ABSTRACT
 
-Add an arbitrary prefix to the vowel groups of words (except for the 
-"silent e").
+Add an arbitrary prefix to the vowel groups of words, except for the 
+"silent e" and "starting, non-vowel y's".
 
 =head1 DESCRIPTION
 
@@ -221,17 +227,18 @@ Convert words to Opish, which is similar to "Ubish", but infinitely
 cooler.
 
 More accurately, this means, add an arbitrary prefix to the vowel 
-groups of words (except for the "silent e").
+groups of words, except for the "silent e" and "starting, non-vowel 
+y's".
 
-Note: This module capitalized words beginning with a vowel to a 
-capitalized version with the prefix prepended.  Maybe a couple 
-examples will elucidate this point:
+Note: This module capitalizes words like you would expect.  Maybe a 
+couple examples will elucidate this point:
 
   enop('Abc') produces 'Opabc'
   enop('abC') produces 'opabC'
 
 Unfortunately, this function, currently converts consecutive spaces 
-into a single space.  Yes, this is not a feature, but a bug.
+and newlines into single spaces and newlines.  Yes, this is not a 
+feature, but a bug.
 
 =head1 EXPORT
 
@@ -244,7 +251,7 @@ If it is an existing text file, it is opened and converted to opish,
 and then saved as "opish-$filename".
 
 If the first member of the argument list is "-opish_prefix", then the 
-next argument is assumed to be the user defined prefix to use, in 
+next argument is assumed to be the user defined prefix to use in 
 place of "op".
 
 =head2 no_silent_e ARRAY
