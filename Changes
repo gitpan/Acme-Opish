@@ -37,3 +37,7 @@ Revision history for Perl extension Acme::Opish.
 
 0.06  Sat Jul 26 2003
     - Ack!!  I was requiring 5.8 in the Makefile.PL.  *sob*
+
+0.0601  Sun Sep 27 2003
+    - Moved the module to lib/Acme.
+    - Added MANIFEST.SKIP to the distro.

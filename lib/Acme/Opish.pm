@@ -1,6 +1,12 @@
+# $Id: Opish.pm,v 1.2 2003/09/28 08:50:37 gene Exp $
+
 package Acme::Opish;
 
-use vars qw($VERSION); $VERSION = '0.06';
+use vars qw($VERSION);
+$VERSION = '0.0601';
+
+use strict;
+use Carp;
 use base qw(Exporter);
 use vars qw(@EXPORT @EXPORT_OK);
 @EXPORT = @EXPORT_OK = qw(
@@ -8,8 +14,6 @@ use vars qw(@EXPORT @EXPORT_OK);
     has_silent_e
     no_silent_e
 );
-use strict;
-use Carp;
 use File::Basename;
 
 # no_silent_e list {{{
@@ -66,25 +70,31 @@ my %OK; @OK{qw(
 )} = undef;
 # }}}
 
+# Add 'no_silent_e' entries if present and then return the list.
 sub no_silent_e {
     $OK{$_} = undef for @_;
     return keys %OK;
 }
 
+# Remove'no_silent_e' entries if present and then return the list.
 sub has_silent_e {
     delete $OK{$_} for @_;
     return keys %OK;
 }
 
+# Prefix vowels not declared in the 'no_silent_e' list.
 sub enop {
     my $prefix = 'op';
+    # If present, the prefix is given as a named parameter.
     if ($_[0] eq '-opish_prefix') {
         shift;
         $prefix = shift;
     }
 
+    # Process the given text stream.
     my @strings = @_;
-    for (@strings) {
+        # Given as a known system filename.
+    for (@strings) {  # {{{
         if (-f) {
             # Open the file for reading.
             open IN, $_ or carp "Can't read $_: $!\n";
@@ -104,7 +114,8 @@ sub enop {
             # Close the files.
             close IN;
             close OUT;
-        }
+        }  # }}}
+        # ..or given as strings on the commandline.
         else {
             $_ = _to_opish($prefix, $_);
         }
@@ -117,15 +128,19 @@ sub enop {
 sub _to_opish {
     my ($prefix, $string) = @_;
 
-    # XXX Oof. We don't preserve whitespace.  : \
+    # XXX Oof.  We don't preserve whitespace.  : \
     my @words = split /\s+/, $string;
 
+    # Process each word as a unit.
     for (@words) {
+        # Is this word capitalized?
         my $is_capped = /^[A-Z]/ ? 1 : 0;
+        # Lowercase the first letter in case we have to prefix it.
         $_ = lcfirst;
 
+        # Okay.  Prefix the sucka.
         # XXX Ack.  How can I simplify this ugliness?
-        if (exists $OK{ lc $_ }) {
+        if (exists $OK{ lc $_ }) {  # {{{
             s/
                 (                   # Capture...
                     [aeiouy]+       # consecutive vowels
@@ -137,13 +152,13 @@ sub _to_opish {
                     \b              # that terminates at a word boundry.
                 )                   # ...end capture.
             /$prefix$1/gisx;        # Add 'op' to what we captured.
-        }
+        }  # }}}
         # Special case 'ye'.
         elsif (lc ($_) eq 'ye') {
             $_ = 'y' . $prefix . substr ($_, -1);
-        }
+        }  
         # We don't want to prefix a non-vowel y.
-        elsif (/^y[aeiouy]/i) {
+        elsif (/^y[aeiouy]/i) {  # {{{
             s/
                 (?:^y)?             # Our string starts with y, but we don't
                                     # want to consider it for every match.
@@ -163,9 +178,9 @@ sub _to_opish {
             /$prefix$1/gisx;        # Add 'op' to what we captured.
 
             $_ = 'y' . $_;
-        }
+        }  # }}}
         # This regexp captures the "non-solitary, trailing e" vowels.
-        else {
+        else {  # {{{
             s/
                 (                   # Capture...
                     [aeiouy]+       # consecutive vowels
@@ -181,11 +196,14 @@ sub _to_opish {
                     \b              # that terminates at a word boundry.
                 )                   # ...end capture.
             /$prefix$1/gisx;        # Add 'op' to what we captured.
-        }
+        }  # }}}
 
+        # The original word was capitalized.
         $_ = ucfirst if $is_capped;
     }
 
+    # Return the words as a single space separated string.
+    # XXX Again, oof.  We don't preserve whitespace.  : \
     return join ' ', @words;
 }
 
@@ -283,7 +301,7 @@ Hopellopo Opaeropyk!
 
 =head1 AUTHOR
 
-Gopene Bopoggs, E<lt>gene@cpan.org<gt>
+Gopene Bopoggs, E<lt>gene@cpan.orgE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
